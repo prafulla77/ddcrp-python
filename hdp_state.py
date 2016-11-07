@@ -23,11 +23,11 @@ class hdp_state_tracker(object):
         else:
             return None
 
-    def initialize_sampler_state(self, list_observations):
+    def initialize_sampler_state(self, doc_observations):
         if self.cur_iter == -1:
             num_data = 0
-            for l_o in list_observations:
-                num_data += len(l_o)
+            for d_o in doc_observations:
+                num_data += len(d_o)
             hdp_state_0 = hdp_state()
             hdp_state_0.num_data = num_data
             customer_links= []
@@ -37,29 +37,29 @@ class hdp_state_tracker(object):
             customers_at_table_list = []
             num_tables_per_cluster = {}
             num_clust = 100 # Random number
-            for l_o in list_observations:
-                customer_links_per_list = []
-                table_links_per_list = []
-                cluster_assignment_customer_per_list = []
-                cluster_assignment_table_per_list = []
+            for l_o in doc_observations:
+                customer_links_per_doc = []
+                table_links_per_doc = []
+                cluster_assignment_customer_per_doc = []
+                cluster_assignment_table_per_doc = []
                 customers_at_table = {}
                 for j in range(len(l_o)):
-                    customer_links_per_list.append(j)
-                    table_links_per_list.append(j)
+                    customer_links_per_doc.append(j)
+                    table_links_per_doc.append(j)
                     hs = set(j)
                     customers_at_table[j] = hs
                     cluster = randint(0,num_clust)
-                    cluster_assignment_customer_per_list.append(cluster)
-                    cluster_assignment_table_per_list.append(cluster)
+                    cluster_assignment_customer_per_doc.append(cluster)
+                    cluster_assignment_table_per_doc.append(cluster)
                     try:
                         num_tables_per_cluster[cluster] += 1
                     except KeyError:
                         num_tables_per_cluster[cluster] = 1
-                customer_links.append(customer_links_per_list)
-                table_links.append(table_links_per_list)
+                customer_links.append(customer_links_per_doc)
+                table_links.append(table_links_per_doc)
                 customers_at_table_list.append(customers_at_table)
-                cluster_assignment_customer.append(cluster_assignment_customer_per_list)
-                cluster_assignment_table.append(cluster_assignment_table_per_list)
+                cluster_assignment_customer.append(cluster_assignment_customer_per_doc)
+                cluster_assignment_table.append(cluster_assignment_table_per_doc)
             hdp_state_0.cust_links = customer_links
             hdp_state_0.table_links = table_links
             hdp_state_0.customers_at_table_list = customers_at_table_list
