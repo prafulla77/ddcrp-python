@@ -37,13 +37,13 @@ class hdp_state_tracker(object):
             customers_at_table_list = []
             num_tables_per_cluster = {}
             num_clust = 100 # Random number
-            for l_o in doc_observations:
+            for d_o in doc_observations:
                 customer_links_per_doc = []
                 table_links_per_doc = []
                 cluster_assignment_customer_per_doc = []
                 cluster_assignment_table_per_doc = []
                 customers_at_table = {}
-                for j in range(len(l_o)):
+                for j in range(len(d_o)):
                     customer_links_per_doc.append(j)
                     table_links_per_doc.append(j)
                     hs = set(j)
