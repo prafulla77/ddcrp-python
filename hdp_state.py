@@ -22,7 +22,9 @@ class hdp_state_tracker(object):
             return self.sampler_states[self.cur_iter]
         else:
             return None
-
+    
+    # Each customer is assigned self link. 
+    # Each table only consists of one customer, corresponding to self link
     def initialize_sampler_state(self, doc_observations):
         if self.cur_iter == -1:
             num_data = 0
@@ -44,6 +46,8 @@ class hdp_state_tracker(object):
                 cluster_assignment_table_per_doc = []
                 customers_at_table = {}
                 for j in range(len(d_o)):
+                    # initializing the customer assignments for each point to itself 
+                    # and hence each customer in its own table
                     customer_links_per_doc.append(j)
                     table_links_per_doc.append(j)
                     hs = set(j)
